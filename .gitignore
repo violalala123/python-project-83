@@ -1,0 +1,11 @@
+# Python & UV
+.venv/
+__pycache__/
+*.py[cod]
+
+# Secrets & Config
+.env
+
+# Tests & Linters
+.pytest_cache/
+.coverage
