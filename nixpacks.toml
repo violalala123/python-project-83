@@ -1,0 +1,10 @@
+cat << 'EOF' > nixpacks.toml
+[phases.setup]
+nixPkgs = ["python311", "gnumake", "uv"]
+
+[phases.build]
+cmds = ["make build"]
+
+[start]
+cmd = "make render-start"
+EOF
