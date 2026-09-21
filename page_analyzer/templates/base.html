@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Анализатор страниц{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="min-h-full flex flex-col justify-between text-slate-800">
+  <header class="bg-slate-900 text-white">
+    <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="/" class="text-xl font-bold tracking-tight text-white hover:text-slate-300">Анализатор страниц</a>
+      <div class="space-x-4">
+        <a href="/" class="text-sm font-medium hover:text-slate-300">Главная</a>
+        <a href="/urls" class="text-sm font-medium hover:text-slate-300">Сайты</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container mx-auto px-4 py-8 flex-grow">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="mb-6 space-y-2">
+          {% for category, message in messages %}
+            <div role="alert" class="p-4 rounded-md text-sm {% if category == 'danger' or category == 'error' %}bg-red-100 text-red-700{% elif category == 'success' %}bg-green-100 text-green-700{% else %}bg-blue-100 text-blue-700{% endif %}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="border-t border-slate-200 py-6 text-center text-sm text-slate-500">
+    <p>Hexlet project &bull; Page Analyzer</p>
+  </footer>
+</body>
+</html>

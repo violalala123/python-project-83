@@ -9,3 +9,7 @@ __pycache__/
 # Tests & Linters
 .pytest_cache/
 .coverage
+
+
+page_analyzer/static/styles.css
+node_modules/
