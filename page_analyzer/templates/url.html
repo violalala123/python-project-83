@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto py-6">
+  <h1 class="text-3xl font-bold mb-6">Сайт: {{ url.name }}</h1>
+
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg border border-slate-200 mb-8">
+    <table class="min-w-full divide-y divide-slate-200 text-sm" data-test="url">
+      <tbody class="divide-y divide-slate-200">
+        <tr>
+          <td class="px-6 py-3 font-medium text-slate-500 w-48">ID</td>
+          <td class="px-6 py-3 text-slate-900">{{ url.id }}</td>
+        </tr>
+        <tr>
+          <td class="px-6 py-3 font-medium text-slate-500">Имя</td>
+          <td class="px-6 py-3 text-slate-900">{{ url.name }}</td>
+        </tr>
+        <tr>
+          <td class="px-6 py-3 font-medium text-slate-500">Дата создания</td>
+          <td class="px-6 py-3 text-slate-900">{{ url.created_at.strftime('%Y-%m-%d') if url.created_at else '' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="text-2xl font-bold mb-4">Проверки</h2>
+
+  <form action="{{ url_for('url_checks_post', id=url.id) }}" method="post" class="mb-6">
+    <button type="submit" style="background-color: #2563eb; color: #ffffff; padding: 8px 16px; border-radius: 6px; font-weight: 500; cursor: pointer; border: none;">
+      Запустить проверку
+    </button>
+  </form>
+
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg border border-slate-200">
+    <table class="min-w-full divide-y divide-slate-200 text-sm" data-test="checks">
+      <thead class="bg-slate-50">
+        <tr>
+          <th class="px-6 py-3 text-left font-medium text-slate-500">ID</th>
+          <th class="px-6 py-3 text-left font-medium text-slate-500">Код ответа</th>
+          <th class="px-6 py-3 text-left font-medium text-slate-500">h1</th>
+          <th class="px-6 py-3 text-left font-medium text-slate-500">title</th>
+          <th class="px-6 py-3 text-left font-medium text-slate-500">description</th>
+          <th class="px-6 py-3 text-left font-medium text-slate-500">Дата создания</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-200">
+        {% for check in checks %}
+        <tr>
+          <td class="px-6 py-4 text-slate-900">{{ check.id }}</td>
+          <td class="px-6 py-4 text-slate-900">{{ check.status_code }}</td>
+          <td class="px-6 py-4 text-slate-900">{{ check.h1 }}</td>
+          <td class="px-6 py-4 text-slate-900">{{ check.title }}</td>
+          <td class="px-6 py-4 text-slate-900">{{ check.description }}</td>
+          <td class="px-6 py-4 text-slate-500">{{ check.created_at.strftime('%Y-%m-%d') if check.created_at else '' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

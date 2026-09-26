@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto py-6">
+  <h1 class="text-3xl font-bold mb-6">Сайты</h1>
+
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg border border-slate-200">
+    <table class="min-w-full divide-y divide-slate-200 text-sm" data-test="urls">
+      <thead class="bg-slate-50">
+        <tr>
+          <th class="px-6 py-3 text-left font-medium text-slate-500">ID</th>
+          <th class="px-6 py-3 text-left font-medium text-slate-500">Имя</th>
+          <th class="px-6 py-3 text-left font-medium text-slate-500">Последняя проверка</th>
+          <th class="px-6 py-3 text-left font-medium text-slate-500">Код ответа</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-200">
+        {% for site in urls %}
+        <tr>
+          <td class="px-6 py-4 text-slate-900">{{ site.id }}</td>
+          <td class="px-6 py-4 text-blue-600 hover:underline">
+            <a href="{{ url_for('url_detail', id=site.id) }}">{{ site.name }}</a>
+          </td>
+          <td class="px-6 py-4 text-slate-500">
+            {{ site.last_check_date.strftime('%Y-%m-%d') if site.last_check_date else '' }}
+          </td>
+          <td class="px-6 py-4 text-slate-900">
+            {{ site.last_status_code if site.last_status_code else '' }}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
