@@ -17,6 +17,7 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret-key')
 def index():
     return render_template('index.html')
 
+
 @app.post('/urls')
 def urls_post():
     raw_url = request.form.get('url', '').strip()
@@ -37,6 +38,7 @@ def urls_post():
     flash('Страница успешно добавлена', 'success')
     return redirect(url_for('url_detail', id=new_url['id']))
 
+
 @app.get('/urls/<int:id>')
 def url_detail(id):
     url = find_url_by_id(id)
@@ -50,6 +52,7 @@ def url_detail(id):
 def urls_get():
     urls = get_all_urls()
     return render_template('urls.html', urls=urls)
+
 
 @app.post('/urls/<int:id>/checks')
 def url_checks_post(id):

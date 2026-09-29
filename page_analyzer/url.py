@@ -3,13 +3,13 @@ import validators
 
 
 def normalize_url(url_string):
-    
+
     parsed = urlparse(url_string)
     return f"{parsed.scheme}://{parsed.netloc}"
 
 
 def validate_url(url_string):
-    
+
     errors = []
     if not url_string:
         errors.append("URL обязателен для заполнения")

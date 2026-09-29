@@ -9,12 +9,12 @@ DATABASE_URL = os.getenv('DATABASE_URL')
 
 
 def get_connection():
-    #подключение к базе
+    # подключение к базе
     return psycopg.connect(DATABASE_URL, row_factory=dict_row)
 
 
 def find_url_by_name(name):
-    #ищем сайт
+    # ищем сайт
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute("SELECT * FROM urls WHERE name = %s;", (name,))
@@ -22,7 +22,7 @@ def find_url_by_name(name):
 
 
 def insert_url(name):
-    #добавляем сайт
+    # добавляем сайт
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute(
@@ -32,6 +32,7 @@ def insert_url(name):
             row = cur.fetchone()
             conn.commit()
             return row
+
 
 def find_url_by_id(id_):
     with get_connection() as conn:
@@ -45,16 +46,16 @@ def get_all_urls():
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT 
+                SELECT
                     urls.id,
                     urls.name,
                     last_checks.created_at AS last_check_date,
                     last_checks.status_code AS last_status_code
                 FROM urls
                 LEFT JOIN (
-                    SELECT DISTINCT ON (url_id) 
-                        url_id, 
-                        created_at, 
+                    SELECT DISTINCT ON (url_id)
+                        url_id,
+                        created_at,
                         status_code
                     FROM url_checks
                     ORDER BY url_id, id DESC
@@ -64,12 +65,14 @@ def get_all_urls():
             )
             return cur.fetchall()
 
+
 def insert_check(url_id, status_code, h1, title, description):
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                INSERT INTO url_checks (url_id, status_code, h1, title, description)
+                INSERT INTO url_checks (url_id, status_code,
+                    h1, title, description)
                 VALUES (%s, %s, %s, %s, %s)
                 RETURNING *;
                 """,

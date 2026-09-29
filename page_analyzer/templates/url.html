@@ -46,11 +46,11 @@
       <tbody class="divide-y divide-slate-200">
         {% for check in checks %}
         <tr>
-          <td class="px-6 py-4 text-slate-900">{{ check.id }}</td>
+          <td class="px-6 py-4 text-slate-900">{{ check.id | truncate(200, True) }}</td>
           <td class="px-6 py-4 text-slate-900">{{ check.status_code }}</td>
-          <td class="px-6 py-4 text-slate-900">{{ check.h1 }}</td>
+          <td class="px-6 py-4 text-slate-900">{{ check.h1 | truncate(200, True) }}</td>
           <td class="px-6 py-4 text-slate-900">{{ check.title }}</td>
-          <td class="px-6 py-4 text-slate-900">{{ check.description }}</td>
+          <td class="px-6 py-4 text-slate-900">{{ check.description | truncate(200, True) }}</td>
           <td class="px-6 py-4 text-slate-500">{{ check.created_at.strftime('%Y-%m-%d') if check.created_at else '' }}</td>
         </tr>
         {% endfor %}
