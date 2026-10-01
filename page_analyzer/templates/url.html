@@ -46,7 +46,7 @@
       <tbody class="divide-y divide-slate-200">
         {% for check in checks %}
         <tr>
-          <td class="px-6 py-4 text-slate-900">{{ check.id | truncate(200, True) }}</td>
+          <td class="px-6 py-4 text-slate-900">{{ check.id }}</td>
           <td class="px-6 py-4 text-slate-900">{{ check.status_code }}</td>
           <td class="px-6 py-4 text-slate-900">{{ check.h1 | truncate(200, True) }}</td>
           <td class="px-6 py-4 text-slate-900">{{ check.title }}</td>
